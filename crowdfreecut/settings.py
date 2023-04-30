@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'home.apps.HomeConfig',
+    'salon.apps.SalonConfig',
+    'customer.apps.CustomerConfig',
 ]
 
 MIDDLEWARE = [
