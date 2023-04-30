@@ -1,9 +1,64 @@
 {% extends 'base/base.html' %}
 {% block title %}Home{% endblock title %}
-{% block header %}{% endblock header %}
+{% block header %}
+<style>
+    .placeholder-white::placeholder{
+        color: white;
+        opacity: 1;
+    }
+</style>
+{% endblock header %}
 
 {% block body %}
-
+<div class="container">
+    <div class="row my-3">
+        <div class="col-lg-12">
+            <div class="card bg-dark border-0 rounded-5">
+                <div class="card-body">
+                    <div class="row my-5">
+                        <div class="col-lg-8 mx-auto my-5">
+                            <form action="">
+                                <div class="row my-5">
+                                    <div class="col-lg-3">
+                                        <select name="location" id="" class="form-select bg-dark text-white form-select-lg">
+                                            <option value="">Select City</option>
+                                            <option value="">Purnea</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input type="search" name="search" id="search" placeholder="Search by Name, City, Location etc." class="form-control bg-dark placeholder-white text-white form-control-lg">
+                                        <input type="submit" hidden>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h4 class="text-decoration-underline">Nearby Saloons</h4>
+        <div class="col-lg-4 mb-4">
+            <a href="{% url 'home:saloon' %}">
+                <div class="card rounded-5 shadow-sm">
+                    <img src="https://1880union.com/wp-content/uploads/2016/12/1880-Saloon-1.jpg" class="card-img-top rounded-top-5" alt="">
+                    <div class="card-body rounded-5">
+                        <h6>
+                            <span class="float-start">Hair Cut Saloon</span>
+                            <span class="float-end badge rounded-pill bg-success h5">4.2</span>
+                        </h6>
+                        <br>
+                        <p class="small text-muted">
+                            <span class="float-start">Lorem ipsum dolor sit.</span>
+                            <span class="float-end">$20 for one</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock body %}
 
 {% block script %}{% endblock script %}
