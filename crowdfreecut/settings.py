@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'salon.apps.SalonConfig',
     'customer.apps.CustomerConfig',
+    'salon.templatetags'
 ]
 
 MIDDLEWARE = [
