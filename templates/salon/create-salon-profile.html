@@ -5,9 +5,55 @@
 {% endblock header %}
 
 {% block body %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-lg-9 mx-auto">
+            <form action="{% url 'salon:create-salon-profile' %}" method="post">
+                {% csrf_token %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <label for="name" class="small text-muted">Salon Name</label>
+                            <input type="text" name="salon-name" id="name" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label for="gender" class="text-muted small">Gender</label>
+                            <select name="gender" id="gender" class="form-select">
+                                <option value="" selected disabled>---Select Gender---</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="" class="text-muted small">Phone</label>
+                                <input type="number" name="phone" id="phone" class="form-control">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="" class="text-muted small">Location</label>
+                                <input type="text" name="location" id="location" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="address" class="text-muted small">Address</label>
+                            <textarea name="address" id="address" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-2">
+                            <label for="Description" class="text-muted small">Description</label>
+                            <textarea name="description" id="description" class="form-control"></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock body %}
-
 {% block script %}
 
 {% endblock script %}
