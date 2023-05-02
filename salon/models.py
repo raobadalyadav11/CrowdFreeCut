@@ -17,7 +17,8 @@ class Salon(BaseModel):
     gender = models.CharField(max_length=100, choices=SALON_GENDER_TYPE)
     phone = models.CharField(max_length=20)
     address = models.TextField()
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
     is_open = models.BooleanField(default=False)
 
     def __str__(self):
