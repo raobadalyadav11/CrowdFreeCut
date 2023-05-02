@@ -3,13 +3,37 @@ from base.views import BaseView
 from django.views import View
 from salon.models import Salon
 from django.contrib.auth import logout
+from customer.models import BookingRequest
 # Create your views here.
 
 class Dashboard(BaseView):
     def get(self, request, *args, **kwargs):
         return render(request, "salon/dashboard.html", {
-
+            'queues': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue")[1:],
+            'current': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue").first(),
+            'holds': BookingRequest.objects.filter(salon__user__id=request.user.id, status="On Hold"),
+            'completes': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Completed")
         })
+    
+    def post(self, request, *args, **kwargs):
+        msg = kwargs.get("msg")
+
+        if msg == "completed":
+            booking = BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue").first()
+            booking.status = "Completed"
+            booking.save()
+
+        if msg == "hold":
+            booking = BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue").first()
+            booking.status = "On Hold"
+            booking.save()
+
+        if msg == "cancel":
+            booking = BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue").first()
+            booking.status = "Cancel"
+            booking.save()
+
+        return redirect("salon:dashboard")
 
 
 class DashboardFunctionView(View):

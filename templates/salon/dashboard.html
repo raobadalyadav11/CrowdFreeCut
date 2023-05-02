@@ -8,38 +8,61 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-lg-3">
+            {% if queues %}
             <p class="mb-1">In Queue</p>
             <div class="list-group">
-                <div class="list-group-item list-group-item-action bg-warning">Lorem, ipsum.</div>
+                {% for queue in queues %}
+                <div class="list-group-item list-group-item-action bg-warning">{{queue.customer.name}}</div>
+                {% endfor %}
             </div>
+            {% endif %}
         </div>
         <div class="col-lg-5">
+            {% if current %}
             <div class="card bg-primary py-5">
                 <div class="card-body py-5 text-white text-center">
-                    <h3 class="mb-3">Lorem, ipsum.</h3>
+                    <h3 class="mb-3">{{current.customer.name}}</h3>
                     <p class="small text-white">Spa, Hair Cut, Pedicure</p>
                     <a href="" class="btn btn-sm btn-warning">Phone</a>
-                    <a href="" class="btn btn-sm btn-success">Complete</a>
-                    <a href="" class="btn btn-sm btn-secondary">Hold</a>
-                    <a href="" class="btn btn-sm btn-danger">Cancel</a>
+                    <form action="{% url 'salon:current-card-function' 'completed' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                    </form>
+                    <form action="{% url 'salon:current-card-function' 'hold' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-secondary">Hold</button>
+                    </form>
+                    <form action="{% url 'salon:current-card-function' 'cancel' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                    </form>
                 </div>
             </div>
+            {% endif %}
         </div>
         <div class="col-lg-4">
+            {% if holds %}
             <p class="mb-1">On Hold</p>
             <div class="list-group">
+                {% for hold in holds %}
                 <div class="list-group-item list-group-item-action bg-secondary text-white">
-                    <span class="float-start">Lorem, ipsum.</span>
+                    <span class="float-start">{{hold.customer.name}}</span>
                     <span class="float-end p-0">
                         <a href="" class="btn btn-outline-light btn-sm float-end m-0">Pick</a>
                     </span>
                 </div>
+                {% endfor %}
             </div>
+            {% endif %}
 
+            {% if completes %}
             <p class="mb-1 mt-3">Completed</p>
             <div class="list-group">
-                <div class="list-group-item list-group-item-action bg-success text-white">Lorem, ipsum.</div>
+                {% for complete in completes %}
+                <div class="list-group-item list-group-item-action bg-success text-white">{{complete.customer.name}}</div>
+                {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
