@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.views import View
 from salon.models import Salon
-from django.contrib.auth import authenticate, login
 from account.models import User
-from django.contrib import messages
+from customer.models import BookingRequest
 
 class HomeView(View):
     template_name = 'home/index.html'
@@ -17,8 +18,12 @@ class HomeView(View):
     
 class SalonDetailsView(View):
     def get(self, request, *args, **kwargs):
+        salon_id = kwargs.get('id')
+        salon = Salon.objects.get(id=salon_id)
+        queue = BookingRequest.objects.filter(salon=salon, status='Queue').count()
         return render(request, "home/salon.html", {
-
+            'salon': salon,
+            'queue_count': queue
         })
     
 class LoginSignUpView(View):

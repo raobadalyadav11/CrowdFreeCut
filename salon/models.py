@@ -26,7 +26,7 @@ class Salon(BaseModel):
     
 
 class SalonService(BaseModel):
-    salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE, related_name='service')
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.IntegerField()
