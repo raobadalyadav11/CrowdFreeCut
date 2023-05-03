@@ -1,7 +1,11 @@
 {% extends "base/salon-base.html" %}
 
 {% block header %}
-
+<style>
+    .fw-500{
+        font-weight: 500;
+    }
+</style>
 {% endblock header %}
 
 {% block body %}
@@ -19,22 +23,30 @@
         </div>
         <div class="col-lg-5">
             {% if current %}
-            <div class="card bg-primary py-5">
-                <div class="card-body py-5 text-white text-center">
+            <div class="card alert alert-info py-5">
+                <div class="card-body py-5 text-dark text-center">
                     <h3 class="mb-3">{{current.customer.name}}</h3>
-                    <p class="small text-white">Spa, Hair Cut, Pedicure</p>
-                    <a href="" class="btn btn-sm btn-warning">Phone</a>
-                    <form action="{% url 'salon:current-card-function' 'completed' %}" method="post">
+                    <p class="small text-dark">Spa, Hair Cut, Pedicure</p>
+                    <a href="" class="btn btn-warning me-2">
+                        <i class="ri-phone-line me-1 align-bottom"></i>Phone
+                    </a>
+                    <form class="d-inline" action="{% url 'salon:current-card-function' 'completed' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                        <button type="submit" class="btn btn-success me-2">
+                            <i class="ri-check-line me-1 align-bottom"></i>Complete
+                        </button>
                     </form>
-                    <form action="{% url 'salon:current-card-function' 'hold' %}" method="post">
+                    <form class="d-inline" action="{% url 'salon:current-card-function' 'hold' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-secondary">Hold</button>
+                        <button type="submit" class="btn btn-secondary me-2">
+                            <i class="ri-pause-line me-1 align-bottom"></i>Hold
+                        </button>
                     </form>
-                    <form action="{% url 'salon:current-card-function' 'cancel' %}" method="post">
+                    <form class="d-inline" action="{% url 'salon:current-card-function' 'cancel' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="ri-close-line me-1 align-bottom"></i>Cancel
+                        </button>
                     </form>
                 </div>
             </div>
@@ -42,24 +54,35 @@
         </div>
         <div class="col-lg-4">
             {% if holds %}
-            <p class="mb-1">On Hold</p>
+            <p class="mb-1 fw-500">On Hold</p>
             <div class="list-group">
                 {% for hold in holds %}
-                <div class="list-group-item list-group-item-action bg-secondary text-white">
-                    <span class="float-start">{{hold.customer.name}}</span>
-                    <span class="float-end p-0">
-                        <a href="" class="btn btn-outline-light btn-sm float-end m-0">Pick</a>
-                    </span>
+                <div class="card alert alert-secondary py-2 px-3 mb-2 shadow-sm">
+                    <div class="">
+                        {{hold.customer.name}} 
+                        <span class="float-end p-0">
+                            <a href="" class="btn btn-outline-dark btn-sm float-end m-0">Pick</a>
+                        </span>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
             {% endif %}
 
             {% if completes %}
-            <p class="mb-1 mt-3">Completed</p>
+            <p class="mb-1 mt-3 fw-500">Completed</p>
             <div class="list-group">
                 {% for complete in completes %}
-                <div class="list-group-item list-group-item-action bg-success text-white">{{complete.customer.name}}</div>
+                <div class="card alert alert-success py-2 px-3 mb-2 shadow-sm">{{complete.customer.name}}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if cancelled %}
+            <p class="mb-1 mt-3 fw-500">Cancelled</p>
+            <div class="list-group">
+                {% for cancel in cancelled %}
+                <div class="card alert alert-danger py-2 px-3 mb-2 shadow-sm">{{cancel.customer.name}}</div>
                 {% endfor %}
             </div>
             {% endif %}

@@ -24,6 +24,8 @@ class BookingRequest(BaseModel):
     booking_datetime = models.DateTimeField()
     service = models.CharField(max_length=200)
     message = models.TextField(null=True, blank=True)
+    token_no = models.CharField(max_length=100, null=True, blank=True)
+    completion_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
         return f"Booking request at {self.booking_datetime}"

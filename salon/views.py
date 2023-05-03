@@ -12,7 +12,8 @@ class Dashboard(BaseView):
             'queues': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue")[1:],
             'current': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Queue").first(),
             'holds': BookingRequest.objects.filter(salon__user__id=request.user.id, status="On Hold"),
-            'completes': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Completed")
+            'completes': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Completed"),
+            'cancelled': BookingRequest.objects.filter(salon__user__id=request.user.id, status="Cancel")
         })
     
     def post(self, request, *args, **kwargs):
