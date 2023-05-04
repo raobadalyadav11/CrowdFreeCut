@@ -19,6 +19,7 @@ class Salon(BaseModel):
     address = models.TextField()
     description = models.TextField(null=True, blank=True)
     location = models.CharField(max_length=100, blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="salon/thumbnail", null=True, blank=True)
     is_open = models.BooleanField(default=False)
 
     def __str__(self):

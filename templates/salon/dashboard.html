@@ -16,7 +16,7 @@
             <p class="mb-1">In Queue</p>
             <div class="list-group">
                 {% for queue in queues %}
-                <div class="list-group-item list-group-item-action bg-warning">{{queue.customer.name}}</div>
+                <div class="card alert alert-warning py-2 px-3 mb-2 shadow-sm">{{queue.customer.name}}</div>
                 {% endfor %}
             </div>
             {% endif %}

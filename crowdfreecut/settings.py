@@ -135,5 +135,12 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 
+#Message Overriding for bootstrap (error ---> danger)
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR:'danger'
+}
+
+
 from .jazzmin_setting import J_SETTINGS
 JAZZMIN_SETTINGS = J_SETTINGS
