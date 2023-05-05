@@ -110,14 +110,57 @@
                 {% endfor %}
             </p>
             <p class="text-muted mb-3">{{salon.description}}</p>
-            <a href="" class="btn btn-lg btn-success">
+            {% if user.is_authenticated %}
+            <a href="" class="btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#book-app-modal">
                 <i class="ri-calendar-check-line me-1 align-bottom"></i>Book Appointment
             </a>
+            {% else %}
+            <a href="{% url 'home:login-signup' %}?next=salon/{{salon.id}}" class="btn btn-lg btn-success" >
+               Login for Book Appointment
+            </a>
+            {% endif %}
             <a href="" class="btn btn-lg btn-outline-warning ms-1">
                 <i class="ri-bookmark-line align-bottom me-1"></i>Bookmark
             </a>
         </div>
     </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="book-app-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-4" id="staticBackdropLabel">
+                <i class="ri-calendar-check-line me-1 align-bottom"></i>Book Appointment
+            </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form  action="{% url 'customer:booking_request' salon.id %}" method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="services" class="form-label">
+                    Select Services<span class="text-danger">*</span>
+                  </label>
+                  <select class="form-select" id="services" name="services" multiple aria-label="multiple select example">
+                    {% for service in salon.service.all %}
+                    <option value="{{service.name}}">{{service.name}} - [₹{{service.price}} for 1 Person]</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                    <label for="spec-req"  class="form-label">Special Requirements</label>
+                    <textarea class="form-control" name="spec-req" id="spec-req" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Book</button>
+            </div>
+        </form>
+        </div>
+    </div>
+  </div>
     
     <div class="row my-5">
         <h3 class="mb-3">Services:</h3>
@@ -130,7 +173,7 @@
                     </h1>
                     <div class="d-flex justify-content-between">
                         <div class="">{{service.name}}</div>
-                        <div class="">${{service.price}}</div>
+                        <div class=""> ₹{{service.price}}</div>
                     </div>
                 </div>
             </div>

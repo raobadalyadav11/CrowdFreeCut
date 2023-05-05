@@ -9,6 +9,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
     </style>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+      .fw-500{
+        font-weight: 500;
+      }
+    </style>
     {% block header %}{% endblock header %}
   </head>
   <body>
@@ -29,21 +34,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Services
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
               <li class="nav-item ms-3">
+                {% if user.is_authenticated %}
+                <a class="nav-link fw-500" href="#">Hello, {{user.name}} </a>
+                {% else %} 
                 <a href="{% url 'home:login-signup' %}" class="btn btn-outline-success" type="submit">
-                    <i class="ri-admin-line me-1 align-bottom"></i>Login</a>
-              </li>
+                  <i class="ri-admin-line me-1 align-bottom"></i>Login</a>
+                {% endif %}
+                </li>
             </ul>
           </div>
         </div>
